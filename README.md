@@ -1,1 +1,1 @@
-This is Popout repostiory, open-sourced and my personal side-project.
+This is Popout repository, open-sourced and my personal side-project + made with ReactNative.
