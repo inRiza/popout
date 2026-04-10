@@ -1,50 +1,98 @@
 import Input from '@/components/ui/input';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import CustomButton from '@/components/ui/button';
-import { LinearGradient } from 'expo-linear-gradient';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
+import { useEffect } from 'react';
 
 export default function LoginScreen() {
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
+  useEffect(() => {
+    translateX.value = withRepeat(
+      withTiming(80, { duration: 8000, easing: Easing.inOut(Easing.sin) }),
+      -1,
+      true
+    );
+    translateY.value = withRepeat(
+      withTiming(60, { duration: 6000, easing: Easing.inOut(Easing.sin) }),
+      -1,
+      true
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value - 300 },
+      { translateY: translateY.value - 300 },
+      { rotate: '-45deg' },
+    ],
+  }));
+
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={[
-          'rgba(132, 34, 220, 0.08)',
-          'rgba(132, 34, 220, 0.03)',
-          'rgba(132, 34, 220, 0.00)',
+      <Animated.Image
+        source={require('@/assets/images/doodle-bg.jpg')}
+        resizeMode="repeat"
+        style={[
+          {
+            position: 'absolute',
+            width: '400%',
+            height: '400%',
+            opacity: 0.02,
+            top: '-100%',
+            left: 0,
+          },
+          animatedStyle,
         ]}
-        start={{ 
-          x: 0, y: 0 
-        }}
-        end={{ 
-          x: 1, y: 1 
-        }}
-        style={StyleSheet.absoluteFillObject}
       />
 
-      <Text style={styles.title}>
-        What's your email or username?
-      </Text>
-
-      <Input
-        iconsName="mail"
-        styleView={styles.input}
-        labelColor="black"
-        placeholder="hello@example.com"
-      />
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>No spam guaranteed</Text>
-        <Text style={styles.cardText}>
-          We hate cluttered inboxes as much as you do. Only the good stuff.
+      <View style={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: '100%',
+      }}>
+        <Text style={[styles.title, { 
+          marginBottom: 40, 
+          textAlign: 'center',
+        }]}>
+          Welcome back to Popout!
         </Text>
-      </View>
 
-      <CustomButton
-        style={styles.button}
-        onPress={() => {}}
-        title="Continue"
-        iconsName="arrow-right"
-      />
+        <View style={{ flexDirection: 'column', gap: 4 }}>
+          <Input
+            styleView={styles.input}
+            labelColor="black"
+            placeholder="hello@example.com"
+          />
+          <Input
+            styleView={styles.input}
+            labelColor="black"
+            placeholder="Enter your password"
+          />
+        </View>
+
+        <View style={{ marginTop: 120, gap: 10 }}>
+          <CustomButton
+            style={styles.button}
+            onPress={() => {}}
+            title="Continue"
+            iconsName="arrow-right"
+          />
+          <CustomButton
+            style={styles.buttonSecondary}
+            onPress={() => {}}
+            title="Continue with Google"
+            colorTitle="black"
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -57,33 +105,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   title: {
-    fontSize: 40,
+    fontSize: 50,
     fontWeight: 'bold',
-    marginBottom: 80,
     color: 'black',
   },
   input: {
     width: '100%',
     marginTop: 20,
   },
-  card: {
-    marginTop: 20,
-    backgroundColor: '#F1F1F1',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderRadius: 20,
-  },
-  cardTitle: {
-    fontWeight: '700',
-    color: 'black',
-  },
-  cardText: {
-    fontSize: 14,
-    marginTop: 10,
-    color: '#1A1C1C',
-  },
   button: {
-    marginTop: 'auto',
     backgroundColor: '#8422DC',
+  },
+  buttonSecondary: {
+    backgroundColor: '#E2E2E2',
   },
 });
