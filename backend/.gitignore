@@ -1,0 +1,15 @@
+# binary build
+/bin/
+*.exe
+*.out
+
+# env file
+.env
+
+# vendor folder
+vendor/
+
+# os / editor noise
+.DS_Store
+.idea/
+.vscode/
