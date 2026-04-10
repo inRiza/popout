@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, StyleProp, StyleSheetProperties } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 
 export default function Input({
@@ -17,7 +17,7 @@ export default function Input({
             <View style={styles.input}>
                 <Feather name={iconsName} size={24} color="black" />
                 <TextInput style={{
-                    fontSize: 20,
+                    fontSize: 24,
                     width: '100%',
                     outlineColor: '#E2E2E2',
                 }} placeholder={placeholder} placeholderTextColor={'#5D5F5F'}/>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     label: {
-        fontSize: 15,
+        fontSize: 40,
         fontWeight: 'semibold',
     },
     input: {
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 8,
         borderRadius: 50,
-        paddingLeft: 20,
-        paddingVertical: 20,
+        paddingLeft: 40,
+        paddingVertical: 30,
         paddingRight: 10,
         backgroundColor: '#E2E2E2',
         color: 'black',

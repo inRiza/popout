@@ -6,12 +6,13 @@ export default function CustomButton ({
     title, 
     style,
     colorTitle = 'white',
+    colorIcon = 'white',
     iconsName,
-}: { onPress: () => void, title: string, style: any, colorTitle?: any, iconsName?: any }) {
+}: { onPress: () => void, title: string, style: any, colorTitle?: any, iconsName?: any, colorIcon?: any }) {
     return (
         <TouchableOpacity onPress={onPress} style={[style, {
             borderRadius: 50,
-            padding: 20,
+            padding: 25,
             flexDirection: 'row',
             gap: 10,
             alignItems: 'center',
@@ -19,10 +20,10 @@ export default function CustomButton ({
         }]}>
             <Text style={{
                 color: colorTitle,
-                fontSize: 16,
+                fontSize: 20,
                 fontWeight: 'bold',
             }}>{title}</Text>
-            {iconsName && <Feather name={iconsName} size={18} color="white" />}
+            {iconsName && <Feather name={iconsName} size={18} color={colorIcon} />}
         </TouchableOpacity>
     );
 }
